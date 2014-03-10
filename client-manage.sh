@@ -81,6 +81,8 @@ elif [[ "$dupip" != "$IP" ]]; then
 	fi
 fi
 
+## TO-DO: Insert lock-file or queue mechanism here.
+
 #Do some work
 if [[ "$OPER" == "help" ]]; then
 	usage
