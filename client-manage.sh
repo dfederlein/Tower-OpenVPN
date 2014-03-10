@@ -106,7 +106,7 @@ fi
 
 if [[ "$error" != "1" ]]; then
 #Import into Tower:
-	awx-manage inventory_import --source=$HOSTCONFIG --inventory-name=$INVNAME
+	awx-manage inventory_import --source=$HOSTCONFIG --inventory-name=$INVNAME --overwrite
 #Kick off ad-hoc config job against new host (commented out, uncomment and use as needed):
 #	cd /var/lib/awx/projects/$PROJ
 #	ansible-playbook -i $IP, $PLAYBOOK
