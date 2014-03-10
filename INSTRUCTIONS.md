@@ -71,7 +71,7 @@ This script will intelligently remove duplicate IP address with different CN nam
 
 Also, you can change $1 from 'add' to 'del' and test that you can remove the host from the $HOSTCONFIG as well.
 
-NOTE: "del" will not delete from Ansible Tower, only from the flat file $HOSTCONFIG command line ansible sees. I'm working on that command and will add to the script soon.
+NOTE: "del" will not delete from Ansible Tower, only from the flat file $HOSTCONFIG command line ansible sees. I'm working on the command to delete from Tower and will add to the script soon.
 
 ALSO NOTE:  This script does not have a lockfile functionality yet.  Multiple clients connecting at the same time might very well step on each other's writes of the file.
 
