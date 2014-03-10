@@ -12,7 +12,7 @@ PLAYBOOK=config.yml
 OPER=$1
 IP=$2
 CN=$3
-HOSTCONFIG=/etc/ansible/hosts.add
+HOSTCONFIG=/etc/ansible/hosts
 
 # Use function template for use in modules:
 usage ()
