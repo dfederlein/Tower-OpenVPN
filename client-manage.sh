@@ -4,6 +4,8 @@
 DOMAIN=vpn.ansible.com
 # Name of existing Tower Inventory dedicated to this
 INVNAME=OpenVPN
+# Name of ansible inventory file to use from command line:
+HOSTCONFIG=/etc/ansible/hosts.vpn 
 #Name the directory under /var/lib/awx/projects to execute the playbook on first config
 PROJ=vpnclient
 #Name of the playbook to run under the project directory
@@ -12,7 +14,6 @@ PLAYBOOK=config.yml
 OPER=$1
 IP=$2
 CN=$3
-HOSTCONFIG=/etc/ansible/hosts.vpn 
 
 # Use function template for use in modules:
 usage ()
