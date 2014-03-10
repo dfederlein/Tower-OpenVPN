@@ -20,14 +20,14 @@ user awx
 group awx
 ```
 
-- make sure that the permissions allow for the system account awx to write to /etc/ansible/hosts:
+- make sure that the permissions allow for the system account awx to write to /etc/ansible/hosts.vpn:
 
 ```
-chown awx.awx /etc/ansible/hosts
-chmod 644 /etc/ansible/hosts
+chown awx.awx /etc/ansible/hosts.vpn
+chmod 644 /etc/ansible/hosts.vpn
 ```
 
-Note: I use /etc/ansible/hosts, but it can be any file specified in the script's variable $HOSTCONFIG
+Note: I use /etc/ansible/hosts.vpn, but it can be any file specified in the script's variable $HOSTCONFIG
 
 - In Tower, make sure you create an inventory and use that name in the attached script as the value for $INVNAME  Leave it empty on creation.
 
