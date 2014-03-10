@@ -71,6 +71,8 @@ This script will intelligently remove duplicate IP address with different CN nam
 
 Also, you can change $1 from 'add' to 'del' and test that you can remove the host from the $HOSTCONFIG as well.
 
+NOTE: learn-address doesn't auto-remove hosts from either /etc/ansible/hosts.vpn or from Tower (it doesn't call the script) on disconnect.  I am not sure how to fix this yet.
+
 ALSO NOTE:  This script does not have a lockfile functionality yet.  Multiple clients connecting at the same time might very well step on each other's writes of the file.
 
 
