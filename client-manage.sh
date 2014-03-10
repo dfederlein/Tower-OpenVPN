@@ -1,6 +1,14 @@
 #!/bin/bash
 # $1=operation $2=address $3=common_name
+#Name the domain we're using in OpenVPN
 DOMAIN=vpn.ansible.com
+# Name of existing Tower Inventory dedicated to this
+INVNAME=OpenVPN
+#Name the directory under /var/lib/awx/projects to execute the playbook on first config
+PROJ=vpnclient
+#Name of the playbook to run under the project directory
+PLAYBOOK=config.yml
+#Other Variables
 OPER=$1
 IP=$2
 CN=$3
@@ -98,10 +106,10 @@ fi
 
 if [[ "$error" != "1" ]]; then
 #Import into Tower:
-	awx-manage inventory_import --source=$HOSTCONFIG --inventory-name=vpntest
+	awx-manage inventory_import --source=$HOSTCONFIG --inventory-name=$INVNAME
 #Kick off ad-hoc config job against new host:
-	cd /var/lib/awx/projects/confignew
-	ansible-playbook -i $IP, config.yml
+	cd /var/lib/awx/projects/$PROJ
+	ansible-playbook -i $IP, $PLAYBOOK
 else
 	exit 1
 fi
