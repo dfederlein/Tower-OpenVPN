@@ -18,7 +18,7 @@ CN=$3
 # Use function template for use in modules:
 usage ()
 {
-    echo "Use: "${0}" <help/add/del> <arg 2> <arg 3>"
+    echo "Use: "${0}" <help/add/delete> <arg 2> <arg 3>"
     exit 1;
 }
 # Some sanity checking on input:
@@ -33,11 +33,11 @@ addnew ()
 {
 	echo $CN".vpn.ansible.com  ansible_ssh_host="$IP >> $HOSTCONFIG
 }
-deloldcn ()
+deleteoldcn ()
 {
 	sed -i /$CN/d $HOSTCONFIG
 }
-deloldip ()
+deleteoldip ()
 {
 	sed -i /$IP/d $HOSTCONFIG
 }
@@ -55,9 +55,9 @@ dupipcount=($(cat $HOSTCONFIG | grep -v "#" | grep -v '\[' | grep $CN | awk '{pr
 dupcncount=($(cat $HOSTCONFIG | grep -v "#" | grep -v '\[' | grep $IP | awk '{print $2}' | sed s/ansible_ssh_host\=// | wc -l ))
 
 if [[ "$dupipcount" -gt 1 ]]; then
-	deloldip
+	deleteoldip
 elif [[ "$dupcncount" -gt 1 ]]; then
-	deloldcn
+	deleteoldcn
 fi
 
 #Evaluate action on our new host
@@ -87,9 +87,9 @@ fi
 #Do some work
 if [[ "$OPER" == "help" ]]; then
 	usage
-elif [[ "$OPER" == "del" ]]; then
-	deloldcn
-	deloldip
+elif [[ "$OPER" == "delete" ]]; then
+	deleteoldcn
+	deleteoldip
 elif [[ "$OPER" == "add" ]]; then
 	case $action in
 	1)

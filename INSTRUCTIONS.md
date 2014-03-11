@@ -53,7 +53,7 @@ USE:
 - Manual use of the script:
 
 ```
-$bash > ./client-manage.sh (add|del) (IPADDRESS) (COMMON NAME)
+$bash > ./client-manage.sh (add|delete) (IPADDRESS) (COMMON NAME)
 ```
 
 - You will notice that lines 111 and 112 of the script are commented out:
@@ -69,7 +69,7 @@ I have left this commented out because I was not using this feature.  For the ba
 
 This script will intelligently remove duplicate IP address with different CN names, duplicate CN names with different IP addresses, or do nothing if the host in full (CN and IP) already exist.  It can also remove old hosts on disconnect of the VPN client, assuming your VPN disconnect script properties are set in the server.conf file of OpenVPN.
 
-Also, you can change $1 from 'add' to 'del' and test that you can remove the host from the $HOSTCONFIG as well.
+Also, you can change $1 from 'add' to 'delete' and test that you can remove the host from the $HOSTCONFIG as well.
 
 NOTE: learn-address doesn't auto-remove hosts from either /etc/ansible/hosts.vpn or from Tower (it doesn't call the script) on disconnect.  I am not sure how to fix this yet.
 
