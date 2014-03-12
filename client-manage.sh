@@ -84,7 +84,7 @@ fi
 
 (
   # Wait for lock on /var/lock/.myscript.exclusivelock (fd 200) for 10 seconds
-  flock -x -w 10 200 || exit 1
+  flock -x -w 30 200 || exit 1
 
 	#Do some work
 	if [[ "$OPER" == "help" ]]; then
