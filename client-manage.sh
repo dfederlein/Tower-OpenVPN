@@ -11,6 +11,8 @@ PROJ=vpnclient
 #Name of the playbook to run under the project directory
 PLAYBOOK=config.yml
 #Other Variables
+LOCKFILE=/var/lock/.client-manage.exclusivelock
+WAITSEC=30
 OPER=$1
 IP=$2
 CN=$3
@@ -83,8 +85,8 @@ elif [[ "$dupip" != "$IP" ]]; then
 fi
 
 (
-  # Wait for lock on /var/lock/.myscript.exclusivelock (fd 200) for 10 seconds
-  flock -x -w 30 200 || exit 1
+  # Wait for lock on /var/lock/.myscript.exclusivelock (fd 200) for $WAITSEC seconds
+  flock -x -w $WAITSEC 200 || exit 1
 
 	#Do some work
 	if [[ "$OPER" == "help" ]]; then
@@ -116,7 +118,7 @@ fi
 		exit 1
 	fi
 
-) 200>/var/lock/.client-manage.exclusivelock
+) 200>$LOCKFILE
 
 # #Kick off ad-hoc config job against new host (commented out, uncomment and use as needed):
 # cd /var/lib/awx/projects/$PROJ
