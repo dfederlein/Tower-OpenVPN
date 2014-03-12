@@ -82,37 +82,42 @@ elif [[ "$dupip" != "$IP" ]]; then
 	fi
 fi
 
-## TO-DO: Insert lock-file or queue mechanism here.
+(
+  # Wait for lock on /var/lock/.myscript.exclusivelock (fd 200) for 10 seconds
+  flock -x -w 10 200 || exit 1
 
-#Do some work
-if [[ "$OPER" == "help" ]]; then
-	usage
-elif [[ "$OPER" == "delete" ]]; then
-	deleteoldcn
-	deleteoldip
-elif [[ "$OPER" == "add" ]]; then
-	case $action in
-	1)
-		updatecn
-	;;
-	2) 
-		updateip
-	;;
-	3)
-		addnew
-	;;
-	esac
-else
-	echo "Please see: "${0}" help"	
-	error=1
-fi
+	#Do some work
+	if [[ "$OPER" == "help" ]]; then
+		usage
+	elif [[ "$OPER" == "delete" ]]; then
+		deleteoldcn
+		deleteoldip
+	elif [[ "$OPER" == "add" ]]; then
+		case $action in
+		1)
+			updatecn
+		;;
+		2) 
+			updateip
+		;;
+		3)
+			addnew
+		;;
+		esac
+	else
+		echo "Please see: "${0}" help"	
+		error=1
+	fi
 
-if [[ "$error" != "1" ]]; then
-#Import into Tower:
-	awx-manage inventory_import --source=$HOSTCONFIG --inventory-name=$INVNAME --overwrite
-#Kick off ad-hoc config job against new host (commented out, uncomment and use as needed):
-#	cd /var/lib/awx/projects/$PROJ
-#	ansible-playbook -i $IP, $PLAYBOOK
-else
-	exit 1
-fi
+	if [[ "$error" != "1" ]]; then
+	#Import into Tower:
+		awx-manage inventory_import --source=$HOSTCONFIG --inventory-name=$INVNAME --overwrite
+	else
+		exit 1
+	fi
+
+) 200>/var/lock/.client-manage.exclusivelock
+
+# #Kick off ad-hoc config job against new host (commented out, uncomment and use as needed):
+# cd /var/lib/awx/projects/$PROJ
+# ansible-playbook -i $IP, $PLAYBOOK
