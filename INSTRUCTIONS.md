@@ -73,8 +73,7 @@ Also, you can change $1 from 'add' to 'delete' and test that you can remove the 
 
 NOTE: learn-address doesn't auto-remove hosts from either /etc/ansible/hosts.vpn or from Tower (it doesn't call the script) on disconnect.  I am not sure how to fix this yet.
 
-ALSO NOTE:  This script does not have a lockfile functionality yet.  Multiple clients connecting at the same time might very well step on each other's writes of the file.
-
+ALSO NOTE:  The lockfile mechanism in this script only retries once.  May need to add mulitple retries.
 
 
 TROUBLESHOOTING:
